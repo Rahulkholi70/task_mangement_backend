@@ -10,6 +10,7 @@ router.get('/', async (req, res) => {
     const boards = await Board.find();
     res.json(boards);
   } catch (error) {
+    console.error('Error fetching boards:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -25,6 +26,7 @@ router.get('/tasks', async (req, res) => {
     }
     res.json(allTasks);
   } catch (error) {
+    console.error('Error fetching tasks:', error);
     res.status(500).json({ error: error.message });
   }
 });
@@ -40,11 +42,12 @@ router.post('/', async (req, res) => {
     await newBoard.save();
     res.status(201).json(newBoard);
   } catch (error) {
+    console.error('Error creating board:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-//   List tasks  
+//   List tasks
 router.get('/:boardId/tasks', async (req, res) => {
   try {
     const { boardId } = req.params;
@@ -57,6 +60,7 @@ router.get('/:boardId/tasks', async (req, res) => {
     }
     res.json(board.tasks);
   } catch (error) {
+    console.error('Error fetching tasks for board:', error);
     res.status(500).json({ error: error.message });
   }
 });
