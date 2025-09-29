@@ -32,6 +32,12 @@ app.get('/', (req, res) => {
   res.send("Backend is connected");
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// For Vercel deployment, export the app
+export default app;
+
+// For local development, listen if not in production
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
