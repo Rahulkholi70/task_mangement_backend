@@ -1,4 +1,5 @@
 
+
 import express from 'express';
 import mongoose from 'mongoose';
 import Board from '../models/Board.js';
@@ -107,12 +108,12 @@ router.post('/:boardId/tasks', async (req, res) => {
       assignedTo,
       dueDate: parsedDueDate
     };
-    console.log('Creating new task subdocument...');
-    const newTaskDoc = await board.tasks.create(newTask);
-    console.log('New task created:', newTaskDoc);
+    console.log('Adding new task...');
+    board.tasks.push(newTask);
     console.log('Saving board...');
     await board.save();
     console.log('Board saved successfully');
+    const newTaskDoc = board.tasks[board.tasks.length - 1];
     res.status(201).json(newTaskDoc);
   } catch (error) {
     console.error('Error in POST task:', error);
