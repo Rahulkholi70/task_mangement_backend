@@ -71,7 +71,7 @@ router.post('/:boardId/tasks', async (req, res) => {
   const { boardId } = req.params;
   const { title, description, status = 'todo', priority = 'medium', assignedTo = '', dueDate = '' } = req.body;
   console.log('POST task - boardId:', boardId, 'data:', req.body);
-  if (!title) {
+  if (!title || !title.trim()) {
     return res.status(400).json({ error: 'Title is required' });
   }
   if (mongoose.connection.readyState !== 1) {
